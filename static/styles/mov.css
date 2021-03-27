@@ -1,0 +1,48 @@
+body{
+    background-color: #292841;
+}
+p{
+   color: white ;
+   font-size:x-large;
+   text-align: center;
+}
+.form{
+    color: white;
+    text-align: center;
+}
+.button{
+            text-decoration: none;
+            text-align: center;
+            color: #1d5ca5;
+            border: 2px solid #1d5ca5;
+            border-radius: 4px;
+            position: relative;
+            width: 150px;
+            line-height: 40px;
+            display: inline-block;
+            font-family: Arial;
+            font-weight: 800;
+            overflow: hidden;
+} 
+.button:before {
+    content: "";
+    background-color: rgba(255,255,255,0.5);
+    height: 100%;
+    width: 40px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -70px;
+    transform: skewX(-45deg) translateX(0px);
+    transition: none;
+  }
+.button:hover{
+    background-color: #1d5ca5;
+    color: #ffffff;
+    border-bottom: 2px solid #1d5ca5;
+}
+
+.button:hover:before{
+    transform: skewX(-45deg) translateX(250px);
+    transition: all 0.4s ease-in;
+}
