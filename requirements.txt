@@ -1,2 +1,6 @@
 flask_socketio
 flask
+eventlet
+opencv-python
+opencv-contrib-python
+numpy
