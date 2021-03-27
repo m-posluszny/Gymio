@@ -8,6 +8,8 @@
       integrity="sha384-DkkWv9oJFWLIydBXXjkBWnG1/fuVhw8YPBq37uvvD6WSYRFRqr21eY5Dg9ZhmWdy" crossorigin="anonymous"></script>
 
     <script src="/static/js/index.js" defer></script>
+    <script src="/static/js/gfx.js" defer></script>
+    <link rel="stylesheet" href="/static/css/style.css">
   
   </head>
   
@@ -16,7 +18,17 @@
     <button onclick="capture()">Capture</button>  <br> </br>
     <p id="print_result"></p>
     <video></video>
-    <canvas id="canvas" style="overflow:auto"></canvas>
+    
+    <canvas id="main_canvas" width="1280" height="720"></canvas>
+    
+    <div>
+      <canvas id="canvas_1" style="overflow:auto"></canvas>
+    </div>
+    <div>
+      <canvas id="canvas_2" style="overflow:auto;"></canvas>
+    </div>
+
+
 
   </body>
 </html>
