@@ -70,7 +70,7 @@ class Ball {
     }
 }
 
-export var playersList = [];
+export var playersList = {};
 export var ball = new Ball(0, 0);
 
 
@@ -81,24 +81,25 @@ function playerJoined(data) {
     let player = room[data.name]
     console.log(room)
     console.log(player)
-
-    playersList.push(new Player(data.name,player.position[0],player.position[0], ""))
 }
 
 function on_gamestate(data) {
-    if (playersList != undefined) {
-        console.log(data)
-
-        for (let step = 0; step < playersList.length; step++) {
-            let name = playersList[step].name
-             console.log(name)
-                playersList[step].image.src = data[name]["frame"];
-                playersList[step].x = data[name]["position"][0]
-                playersList[step].y = data[name]["position"][1]
+    for (var key in data) {
+        if (key != "ball") {
+            if (!(key in playersList)) {
+                playersList[key] = new Player(data.name, data[key]["position"][0], data[key]["position"][1], data[key]["frame"])
+            }
+            else {
+                playersList[key].image.src = data[key]["frame"];
+                playersList[key].x = data[key]["position"][0]
+                playersList[key].y = data[key]["position"][1]
             }
         }
-        ball.x = data["ball"][0]
-        ball.y = data["ball"][1]
+    }
+    ball.x = data["ball"][0]
+    ball.y = data["ball"][1]
+    
+    console.log(playersList)
 }
 mainLoop();
 function mainLoop() {    
