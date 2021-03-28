@@ -1,5 +1,5 @@
 from game import play
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session,redirect
 from flask_socketio import SocketIO, emit, namespace, send, join_room, leave_room, rooms
 from game_objects import GameRoom, Player
 from backend.video_proc import VideoProc
@@ -95,6 +95,10 @@ def on_create_game(data):
     if room_id not in game_rooms:
         game_rooms[room_id] = GameRoom(room_id,1200,700)
         create_room = not create_room
+    
+    if len(game_rooms[room_id].players.keys() )==2:
+         emit("rejected")
+         return
     game_rooms[room_id].add_player(player_id,ip)
     join_room(room_id)
     emit("user_handshake")

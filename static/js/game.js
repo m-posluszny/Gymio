@@ -42,6 +42,7 @@ socket.on('user_handshake', mainLoop());
 
 socket.on('game_state', on_gamestate);
 socket.on('joined',playerJoined)
+socket.on('rejected',rejectPlayer)
 
 captureCamera(video);
 
@@ -81,6 +82,12 @@ function playerJoined(data) {
     let player = room[data.name]
     console.log(room)
     console.log(player)
+}
+
+function rejectPlayer(data)
+{
+    window.location.href = "/"
+
 }
 
 function on_gamestate(data) {
