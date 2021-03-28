@@ -95,7 +95,8 @@ function on_gamestate(data) {
                 playersList[step].y = data[name].pos[1]
             }
         }
-        ball.
+        ball.x = data["ball"][0]
+        ball.y = data["ball"][1]
 }
 mainLoop();
 function mainLoop() {    
