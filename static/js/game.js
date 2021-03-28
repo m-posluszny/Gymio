@@ -54,9 +54,6 @@ function get_cam(data) {
 }
 captureCamera();
 
-
-
-
 class Player {
     constructor(name, x, y, imageBase64) {
         this.x = x;
@@ -67,8 +64,15 @@ class Player {
     }
 }
 
-export var playersList = [];
+class Ball {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
 
+export var playersList = [];
+export var ball = Ball(0, 0);
 
 
 function playerJoined(data) {
@@ -77,12 +81,6 @@ function playerJoined(data) {
     let room = data.room
     let player = room[data.name]
     playersList.push(new Player(data.name,player.position[0],player.position[0], ""))
-}
-
-
-function on_gamestate(data) {
-    //console.log(data)
-    //document.querySelector('#print_result').innerHTML = toString(data);
 }
 
 function on_gamestate(data) {
@@ -94,6 +92,7 @@ function on_gamestate(data) {
                 playersList[step].y = data[name].pos[1]
             }
         }
+        ball.
 }
 mainLoop();
 function mainLoop() {    
