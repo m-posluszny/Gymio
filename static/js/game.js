@@ -112,11 +112,12 @@ function captureCamera() {
 }
 
 function toBase64() {
-    var scale = Math.min(canvas_1.width / imageWidth, canvas_1.height / imageHeight);
-    var x = (canvas_1.width / 2) - (imageWidth / 2) * scale;
-    var y = (canvas_1.height / 2) - (imageHeight / 2) * scale;
-    canvas_1.getContext('2d').drawImage(video, x, y, imageWidth * scale, imageHeight * scale);
-    return canvas_1.toDataURL('image/base64', 0.1);     
+    //var scale = Math.min(canvas_1.width / imageWidth, canvas_1.height / imageHeight);
+    //var x = (canvas_1.width / 2) - (imageWidth / 2) * scale;
+    //var y = (canvas_1.height / 2) - (imageHeight / 2) * scale;
+    //canvas_1.getContext('2d').drawImage(video, x, y, imageWidth * scale, imageHeight * scale);
+    canvas_1.getContext('2d').drawImage(video, 0, 0, 256, 256);
+    return canvas_1.toDataURL('image/jpeg', 0.1);     
 }
 
 // function fromBase64(data) {
