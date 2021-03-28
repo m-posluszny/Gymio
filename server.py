@@ -93,17 +93,20 @@ def handle_camera(data):
 def on_create_game(data):
     player_id = data["player_name"]
     room_id = data["id"]
+    create_room = False
     if room_id not in game_rooms:
         ip = request.remote_addr
         game_rooms[room_id] = GameRoom(room_id,800,800)
         game_rooms[room_id].add_player(player_id,ip)
+        create_room = not create_room
     join_room(room_id)
     print('joined')
     emit("user_handshake")
     
     emit("joined",{"name":player_id,"room":game_rooms[room_id].send_packet()}, room=room_id)
-    start_interval(room_id)
-    
+    if create_room:
+        start_interval(room_id)
+        
     
 @socketio.on('join_game') 
 def on_join_game(data):

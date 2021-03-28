@@ -71,7 +71,7 @@ class Ball {
 }
 
 export var playersList = [];
-export var ball = Ball(0, 0);
+export var ball = new Ball(0, 0);
 
 
 function playerJoined(data) {
@@ -87,12 +87,14 @@ function playerJoined(data) {
 
 function on_gamestate(data) {
     if (playersList != undefined) {
+        console.log(data)
+
         for (let step = 0; step < playersList.length; step++) {
             let name = playersList[step].name
-                console.log(data[name]["frame"])
+             console.log(name)
                 playersList[step].image.src = data[name]["frame"];
-                playersList[step].x = data[name].pos[0]
-                playersList[step].y = data[name].pos[1]
+                playersList[step].x = data[name]["position"][0]
+                playersList[step].y = data[name]["position"][1]
             }
         }
         ball.x = data["ball"][0]
