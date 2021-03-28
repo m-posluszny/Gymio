@@ -7,9 +7,9 @@
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"
       integrity="sha384-DkkWv9oJFWLIydBXXjkBWnG1/fuVhw8YPBq37uvvD6WSYRFRqr21eY5Dg9ZhmWdy" crossorigin="anonymous"></script>
 
-    <script src="/static/js/game.js" defer></script>
-    <!-- <script src="/static/js/gfx.js" defer></script> -->
-    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+    <script type="module" src="/static/js/game.js" defer></script>
+    <script type="module" src="/static/js/gfx.js" defer></script>
+    <link rel="stylesheet" href="/static/css/style.css">
   
   </head>
   
@@ -21,7 +21,7 @@
     
     <canvas id="main_canvas" width="1280" height="720"></canvas>
     
-    <div>
+    <div id="canvas_1_container">
       <canvas id="canvas_1" style="overflow:auto"></canvas>
     </div>
     <div>

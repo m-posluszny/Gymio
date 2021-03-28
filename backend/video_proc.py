@@ -14,11 +14,16 @@ class VideoProc:
 
         self.hand_count = hand_count
         
-    def b64_to_image(self,base64_string):
-        sbuf = StringIO()
-        sbuf.write(base64.b64decode(base64_string))
-        pimg = Image.open(sbuf)
-        return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
+    def b64_to_image(self, base64_string):
+        # sbuf = StringIO()
+        
+        imgdata = base64.decodebytes(str.encode(base64_string))
+        image = Image.open(io.BytesIO(imgdata))
+        return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2RGB)
+        # sbuf.write(base64.b64decode(base64_string))
+        # pimg = Image.open(sbuf)
+        
+        # return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
     def process_image(self, frame):
         frame = self.b64_to_image(frame)

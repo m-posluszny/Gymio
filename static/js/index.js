@@ -1,11 +1,10 @@
-
-var socket = io();
-
-
 function join(){
-    var name = document.getElementById("name").textContent;
-    var name = document.getElementById("room").textContent;
+    var name = document.getElementById("name").value;
+    var room = document.getElementById("room").value;
 }
+
+var createButton = document.getElementById('create_button');
+createButton.onclick = create;
 
 function create() {
     var name = document.getElementById('name').value;
