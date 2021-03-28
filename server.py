@@ -97,8 +97,8 @@ def on_create_game(data):
     if room_id not in game_rooms:
         ip = request.remote_addr
         game_rooms[room_id] = GameRoom(room_id,800,800)
-        game_rooms[room_id].add_player(player_id,ip)
         create_room = not create_room
+    game_rooms[room_id].add_player(player_id,ip)
     join_room(room_id)
     print('joined')
     emit("user_handshake")
