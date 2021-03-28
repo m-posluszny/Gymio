@@ -31,12 +31,22 @@ class GameRoom:
     def update_gameroom(self):
         for name,player in self.players.items():
             player.move_player(self.size)
+        self.move_ball()
     
     def move_ball(self):
+        for name, player in self.players.items():
+            miny = player.position[1] - 10
+            maxy = player.position[1] + player.size[1] + 10
+
+            if(self.ball[0] > player.position[0] 
+            and self.ball[0] < player.position[0] + player.size[0]
+            and self.ball[1] > miny and self.ball[1] < maxy):
+                self.up = !self.up
+            
+
         if (self.up):
             self.ball[0]+=self.velocity
             self.ball[1]+=self.velocity
-        
         else:
             self.ball[0]-=self.velocity
             self.ball[1]-=self.velocity
@@ -73,8 +83,8 @@ class Player:
         w = max_size[0]
         pos = self.position[0]
         velo = self.velocity
-        if (self.hand_pos[0] < (w/3) and pos-velo > 0):
+        if (self.hand_pos[0] < (w/3) and pos - velo > 0):
             self.position[0]-=velo
-        elif (self.hand_pos[0] > (2*w/3) and pos + velo < w):
+        elif (self.hand_pos[0] > (2*w/3) and pos + velo + size[0] < w):
             self.position[0]+=velo
          
