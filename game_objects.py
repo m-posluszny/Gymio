@@ -8,7 +8,7 @@ class GameRoom:
         self.players = {}
         self.size = [w,h]
         self.ball = [w/2,h/2]
-        self.velocity=1
+        self.velocity=15
         self.slots = 2
         self.up=True
         self.right=True
@@ -55,6 +55,12 @@ class GameRoom:
         
         if(self.ball[0] > self.size[0]):
             self.right = False
+        
+        if(self.ball[1] > self.size[1]):
+            self.up = False
+        
+        if(self.ball[1] < 0):
+            self.up = True
 
         if (self.up):
             self.ball[1]+=self.velocity
@@ -74,9 +80,9 @@ class Player:
         self.name = name
         self.frame = ""
         self.score = 0
-        self.velocity = 1
+        self.velocity = 10
         self.position = [0,0]
-        self.size = [200,200] #TODO
+        self.size = [320,240] #TODO
         self.hand_pos=[0,0]
 
     def set_frame(self,b64):
@@ -95,11 +101,12 @@ class Player:
         self.hand_pos = [x+w/2, y+h/2]
         
     def move_player(self,max_size):
-        w = max_size[0]
+        w = self.size[0]
         pos = self.position[0]
         velo = self.velocity
-        if (self.hand_pos[0] < (w/3) and pos - velo > 0):
+        # print(f'{self.hand_pos[0]} left_val{w/2} right_val{(w/2)}')
+        if (self.hand_pos[0] < (w/2) and pos - velo > 0):
             self.position[0]-=velo
-        elif (self.hand_pos[0] > (2*w/3) and pos + velo + size[0] < w):
+        elif (self.hand_pos[0] > (w/2) and pos + velo + self.size[0] < max_size[0]):
             self.position[0]+=velo
          

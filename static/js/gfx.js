@@ -26,7 +26,8 @@ function drawBackground() {
     mainCanvas.style.background = "url('https://image.freepik.com/darmowe-zdjecie/phuket-beach-tajlandia_38810-691.jpg')";
     mainCanvas.style.backgroundRepeat = "space";
     mainCanvas.style.backgroundPosition = "center";
-    mainCanvas.style.backgroundSize = "contain";
+    mainCanvas.style.backgroundSize = "cover";
+    mainCanvas.style.width = 1200;
 }
 
 function draw() {
@@ -34,4 +35,4 @@ function draw() {
     drawBall();
     drawPlayers();
 }
-setInterval(draw, 10);
+setInterval(draw, 60);

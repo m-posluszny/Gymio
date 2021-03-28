@@ -12,11 +12,11 @@ import json
 
 # Creating a flask app and using it to instantiate a socket object
 app = Flask(__name__)
-video_proc = VideoProc(size=200, confidence=0.25, hand_count=1)
+video_proc = VideoProc(size=320, confidence=0.02, hand_count=1)
 socketio = SocketIO(app)
 game_rooms = {}
 threads=[]
-FRAME_RATE = 24
+FRAME_RATE = 35
 def handler(signal, frame):
   print('CTRL-C pressed!')
   sys.exit(0)
@@ -78,6 +78,7 @@ def handle_camera(data):
     player.set_frame(data["data"])
     data = video_proc.process_image(frame = data["data"])
     if data:
+        print(data)
         player.calc_hand(*data)
 
     
