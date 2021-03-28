@@ -41,7 +41,6 @@ socket.on('user_handshake', mainLoop());
 
 
 socket.on('game_state', on_gamestate);
-socket.on('camera_b64_resp', updateGame)
 socket.on('joined',playerJoined)
 
 captureCamera(video);
@@ -76,20 +75,19 @@ function playerJoined(data) {
     console.log("anythin")
     let room = data.room
     let player = room[data.name]
+    console.log(room)
+    console.log(player)
+
     playersList.push(new Player(data.name,player.position[0],player.position[0], ""))
 }
 
 
 function on_gamestate(data) {
-    //console.log(data)
-    //document.querySelector('#print_result').innerHTML = toString(data);
-}
-
-function on_gamestate(data) {
     if (playersList != undefined) {
-        for (let step = 0; step < length(playersList); step++) {
-                let name =  playersList[step].name
-                playersList[step].image.src = data.data.data;
+        for (let step = 0; step < playersList.length; step++) {
+            let name = playersList[step].name
+                console.log(data[name]["frame"])
+                playersList[step].image.src = data[name]["frame"];
                 playersList[step].x = data[name].pos[0]
                 playersList[step].y = data[name].pos[1]
             }
