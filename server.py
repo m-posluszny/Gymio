@@ -54,18 +54,13 @@ def go_to_room(room_name):
     if name:
         return render_template('game.html')
     else:
-        return render_template('join.html')
+        return redirect(f"/join/{room_name}")
 
         
 
 @app.route('//join//<room_name>')
 def game_view(room_name):
-    #TODO PRZEKAZAC ID ROOMU DO HTMLA
-    
-    if room_name in game_rooms:
-         return render_template('join.html')
-    else:
-         return render_template('index.html')
+   return render_template('join.html')
 
 
 @app.route('/')
