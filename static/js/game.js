@@ -105,7 +105,7 @@ function mainLoop() {
     // document.querySelector('#print_result').innerHTML = toBase64();
     const b64 = toBase64();
     //convertImgToDataURLviaCanvas()
-    socket.emit('camera_b64', { data: b64,room:room });
+    socket.emit('camera_b64', { data: b64,room:room,name:username});
     setTimeout(mainLoop, 60);
 }
 
