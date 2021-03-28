@@ -37,20 +37,16 @@ socket.emit('create_game', {
     player_name: username
 });
 
-socket.on('joined', mainLoop());
+socket.on('user_handshake', mainLoop());
 
 
 socket.on('game_state', on_gamestate);
-socket.on('camera_b64_resp', updatePlayers)
-socket.on('players')
+socket.on('camera_b64_resp', updateGame)
+socket.on('joined',playerJoined)
 
 captureCamera(video);
 
 
-function on_gamestate(data) {
-    //console.log(data)
-    //document.querySelector('#print_result').innerHTML = toString(data);
-}
 
 function get_cam(data) {
     fromBase64(data);
@@ -62,35 +58,49 @@ captureCamera();
 
 
 class Player {
-    constructor(x, y, imageBase64) {
+    constructor(name, x, y, imageBase64) {
         this.x = x;
         this.y = y;
         this.image = new Image();
         this.image.src = imageBase64;
+        this.name = name;
     }
 }
 
 export var playersList = [];
-var player_1 = new Player(0, 0, "");
-var player_2 = new Player(10, 10, "");
-playersList.push(player_1);
-playersList.push(player_2);
 
-function updatePlayers(data) {
-    if (playersList != undefined) {
-        playersList[0].x += 1;
-        playersList[1].x -= 1;
-        playersList[0].image.src = data.data.data;
-        playersList[1].image.src = data.data.data;
-    }
+
+
+function playerJoined(data) {
+    console.log(data)
+    console.log("anythin")
+    let room = data.room
+    let player = room[data.name]
+    playersList.push(new Player(data.name,player.position[0],player.position[0], ""))
 }
 
+
+function on_gamestate(data) {
+    //console.log(data)
+    //document.querySelector('#print_result').innerHTML = toString(data);
+}
+
+function on_gamestate(data) {
+    if (playersList != undefined) {
+        for (let step = 0; step < length(playersList); step++) {
+                let name =  playersList[step].name
+                playersList[step].image.src = data.data.data;
+                playersList[step].x = data[name].pos[0]
+                playersList[step].y = data[name].pos[1]
+            }
+        }
+}
 mainLoop();
 function mainLoop() {    
     // document.querySelector('#print_result').innerHTML = toBase64();
     const b64 = toBase64();
     //convertImgToDataURLviaCanvas()
-    socket.emit('camera_b64', { data: b64 });
+    socket.emit('camera_b64', { data: b64,room:room });
     setTimeout(mainLoop, 60);
 }
 

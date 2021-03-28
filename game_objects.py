@@ -9,6 +9,7 @@ class GameRoom:
         self.size = [w,h]
         self.ball = [w/2,h/2]
         self.velocity=1
+        self.slots = 2
         self.up=True
     
     def send_packet(self):
@@ -24,7 +25,11 @@ class GameRoom:
     
     def add_player(self,name,ip):
         self.players[ip] = Player(name,ip)
-
+        if len(self.players.keys()) <= self.slots/2:
+            self.players[ip].set_pos(0,self.size[1])
+        else:
+            self.players[ip].set_pos(0,0)
+            
     def remove_player(self, player):
         self.players.pop(player.ip)
     

@@ -1,5 +1,5 @@
 from game import play
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 from flask_socketio import SocketIO, emit, namespace, send, join_room, leave_room, rooms
 from game_objects import GameRoom, Player
 from backend.video_proc import VideoProc
@@ -82,29 +82,26 @@ def test_connect():
 @socketio.on('camera_b64')
 def handle_camera(data):
     ip = request.remote_addr
-    emit('camera_b64_resp',{'data':data})
-    # print('b64',rooms())
-    # player = game_rooms[rooms()[-1]].players[ip]
-    # player.set_frame(data)
+    player = game_rooms[data["room"]].players[ip]
+    player.set_frame(data)
     data = video_proc.process_image(frame = data["data"])
     if data:
-        print(data)
-    # player.calc_hand(x,y,w,h)
+        player.calc_hand(*data)
 
     
 @socketio.on('create_game') 
 def on_create_game(data):
-    print(data)
-    if data["id"] not in game_rooms:
-        print("rooom")
-        room_id = data["id"]
-        player_id = data["player_name"]
+    player_id = data["player_name"]
+    room_id = data["id"]
+    if room_id not in game_rooms:
         ip = request.remote_addr
         game_rooms[room_id] = GameRoom(room_id,800,800)
         game_rooms[room_id].add_player(player_id,ip)
     join_room(room_id)
+    print('joined')
+    emit("user_handshake")
     
-    emit("joined", room=room_id)
+    emit("joined",{"name":player_id,"room":game_rooms[room_id].send_packet()}, room=room_id)
     start_interval(room_id)
     
     
