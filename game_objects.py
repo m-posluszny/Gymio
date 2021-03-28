@@ -27,9 +27,9 @@ class GameRoom:
     def add_player(self,name,ip):
         self.players[ip+name] = Player(name,ip)
         if len(self.players.keys()) <= self.slots/2:
-            self.players[ip+name].set_pos(0,self.size[1]-self.players[ip+name].size[1])
+            self.players[ip+name].set_pos(self.size[0]/2,self.size[1]-self.players[ip+name].size[1]/1.5)
         else:
-            self.players[ip+name].set_pos(0,0)
+            self.players[ip+name].set_pos(self.size[0]/2,0)
             
     def remove_player(self, player):
         self.players.pop(player.ip)

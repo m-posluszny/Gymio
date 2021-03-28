@@ -5,7 +5,7 @@ function join(){
 }
 
 var createButton = document.getElementById('create_button');
-createButton.onclick = create;
+createButton.onclick     = create;
 
 function create() {
     var name = document.getElementById('name').value;
