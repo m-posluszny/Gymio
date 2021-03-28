@@ -11,6 +11,7 @@ class GameRoom:
         self.velocity=1
         self.slots = 2
         self.up=True
+        self.right=True
     
     def send_packet(self):
         data={}
@@ -47,15 +48,24 @@ class GameRoom:
             and self.ball[0] < player.position[0] + player.size[0]
             and self.ball[1] > miny and self.ball[1] < maxy):
                 self.up = not self.up
-            
+                self.right = not self.right
+
+        if(self.ball[0] < 0 ):
+            self.right = True
+        
+        if(self.ball[0] > size[0]):
+            self.right = False
 
         if (self.up):
-            self.ball[0]+=self.velocity
             self.ball[1]+=self.velocity
         else:
-            self.ball[0]-=self.velocity
             self.ball[1]-=self.velocity
-            
+
+        if(self.right):
+            self.ball[0]+=self.velocity
+        else:
+            self.ball[0]-=self.velocity
+
     
 class Player:
     
