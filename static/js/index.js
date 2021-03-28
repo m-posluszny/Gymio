@@ -10,10 +10,5 @@ function join(){
 function create() {
     var name = document.getElementById('name').value;
     var room = document.getElementById('room').value;
-    socket.on('joined',function(){    window.location.href = "/room/"+room;})
-    socket.emit('create_game', {
-       
-            id: room,
-            player_name: name
-    });
+    window.location.href = "/room/"+room+"?user="+name;
 }

@@ -21,33 +21,29 @@ var frameHeight;
 
 
 var socket = io();
+var url_string =  window.location.href
+var url = new URL(url_string);
+var username = url.searchParams.get("user");
+var room = url_string.split("/")
+var room = room[room.length-1].split("?")[0]
+console.log(username);
+console.log(room);
 
-
-function join(){
-    var name = document.getElementById("name").value;
-    var room = document.getElementById("room").value;
-}
-
-function create() {
-    var name = document.getElementById('name').value;
-    var room = document.getElementById('room').value;
-    socket.on('joined', function () {
-        window.location.href = "/room/" + room;
-        mainLoop();
-    })
-    socket.emit('create_game', {
+socket.emit('create_game', {
        
-            id: room,
-            player_name: name
-    });
-}
+    id: room,
+    player_name: username
+});
+
+socket.on('joined', mainLoop());
 
 socket.on('camera_b64_resp', get_cam);
+
+socket.on('game_state', on_gamestate);
 
 socket.on('players')
 
 captureCamera(video);
-socket.on('game_state', on_gamestate);
 
 
 function on_gamestate(data) {

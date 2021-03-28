@@ -1,5 +1,5 @@
 from game import play
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit, namespace, send, join_room, leave_room, rooms
 from game_objects import GameRoom, Player
 from backend.video_proc import VideoProc
@@ -33,7 +33,7 @@ def game_interval(room_id,*args,**kwargs):
         game = game_rooms[room_id]
         game.update_gameroom()
         
-        emit('game_state',dir(game),room=room_id)
+        emit('game_state',game.send_packet(),room=room_id)
         socketio.sleep(1/FRAME_RATE)
 
 @socketio.on('join')
@@ -50,14 +50,20 @@ def on_leave(data):
     leave_room(room)
     send(username + ' has left the room.', room=room)
     
-@app.route('//room//<room_name>')
+@app.route('//room//<room_name>', methods=['GET'])
 def go_to_room(room_name):
-    return render_template('game.html')
+    name = request.args.get("user")
+    if name:
+        return render_template('game.html')
+    else:
+        return render_template('join.html')
+
         
 
 @app.route('//join//<room_name>')
 def game_view(room_name):
     #TODO PRZEKAZAC ID ROOMU DO HTMLA
+    
     if room_name in game_rooms:
          return render_template('join.html')
     else:
@@ -77,7 +83,7 @@ def test_connect():
 def handle_camera(data):
     ip = request.remote_addr
     emit('camera_b64_resp',{'data':data})
-    print('b64',rooms())
+    # print('b64',rooms())
     # player = game_rooms[rooms()[-1]].players[ip]
     # player.set_frame(data)
     # x,y,w,h = video_proc.process_image(frame = data)
@@ -87,13 +93,14 @@ def handle_camera(data):
 @socketio.on('create_game') 
 def on_create_game(data):
     print(data)
-    room_id = data["id"]
-    player_id = data["player_name"]
-    ip = request.remote_addr
-    game_rooms[room_id] = GameRoom(room_id,800,800)
-    game_rooms[room_id].add_player(player_id,ip)
+    if data["id"] not in game_rooms:
+        print("rooom")
+        room_id = data["id"]
+        player_id = data["player_name"]
+        ip = request.remote_addr
+        game_rooms[room_id] = GameRoom(room_id,800,800)
+        game_rooms[room_id].add_player(player_id,ip)
     join_room(room_id)
-    print(rooms())
     
     emit("joined", room=room_id)
     start_interval(room_id)

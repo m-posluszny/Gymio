@@ -1,7 +1,6 @@
 from numpy import e
 from game import play
 
-
 class GameRoom:
     
     def __init__(self,id,w,h):
@@ -11,7 +10,18 @@ class GameRoom:
         self.ball = [w/2,h/2]
         self.velocity=1
         self.up=True
-        
+    
+    def send_packet(self):
+        data={}
+        data["ball"]=self.ball
+        for key, player in self.players.items():
+            data[player.name]={}
+            data[player.name]["frame"]=player.frame
+            data[player.name]["score"]=player.score
+            data[player.name]["position"]=player.position
+            data[player.name]["size"]=player.size 
+        return data
+    
     def add_player(self,name,ip):
         self.players[ip] = Player(name,ip)
 
