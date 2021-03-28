@@ -1,5 +1,5 @@
 from game import play
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session,redirect
 from flask_socketio import SocketIO, emit, namespace, send, join_room, leave_room, rooms
 from game_objects import GameRoom, Player
 from backend.video_proc import VideoProc
@@ -54,18 +54,13 @@ def go_to_room(room_name):
     if name:
         return render_template('game.html')
     else:
-        return render_template('join.html')
+        return redirect(f"/join/{room_name}")
 
         
 
 @app.route('//join//<room_name>')
 def game_view(room_name):
-    #TODO PRZEKAZAC ID ROOMU DO HTMLA
-    
-    if room_name in game_rooms:
-         return render_template('join.html')
-    else:
-         return render_template('index.html')
+   return render_template('join.html')
 
 
 @app.route('/')
@@ -96,6 +91,10 @@ def on_create_game(data):
     if room_id not in game_rooms:
         game_rooms[room_id] = GameRoom(room_id,1200,700)
         create_room = not create_room
+    
+    if len(game_rooms[room_id].players.keys() )==2:
+         emit("rejected")
+         return
     game_rooms[room_id].add_player(player_id,ip)
     join_room(room_id)
     emit("user_handshake")

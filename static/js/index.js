@@ -1,6 +1,7 @@
 function join(){
     var name = document.getElementById("name").value;
     var room = document.getElementById("room").value;
+     window.location.href = "/room/"+room+"?user="+name;
 }
 
 var createButton = document.getElementById('create_button');
