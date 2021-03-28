@@ -83,7 +83,7 @@ def test_connect():
 def handle_camera(data):
     ip = request.remote_addr
     player = game_rooms[data["room"]].players[ip]
-    player.set_frame(data)
+    player.set_frame(data["data"])
     data = video_proc.process_image(frame = data["data"])
     if data:
         player.calc_hand(*data)
