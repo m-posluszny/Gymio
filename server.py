@@ -28,11 +28,9 @@ def start_interval(room_id):
     game_interval(room_id)
     
 def game_interval(room_id,*args,**kwargs):
-    print(rooms())
     while True:
         game = game_rooms[room_id]
         game.update_gameroom()
-        print(game.players)
         emit('game_state',game.send_packet(),room=room_id)
         socketio.sleep(1/FRAME_RATE)
 
@@ -77,7 +75,6 @@ def index():
 @socketio.on('connect')
 def test_connect():
     emit('after connect',  {'data':'Lets dance'})
-    print('connected')
     
 @socketio.on('camera_b64')
 def handle_camera(data):
@@ -100,7 +97,6 @@ def on_create_game(data):
         create_room = not create_room
     game_rooms[room_id].add_player(player_id,ip)
     join_room(room_id)
-    print('joined')
     emit("user_handshake")
     emit("joined",{"name":player_id,"room":game_rooms[room_id].send_packet()}, room=room_id)
     if create_room:
