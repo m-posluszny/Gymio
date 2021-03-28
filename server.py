@@ -86,8 +86,9 @@ def handle_camera(data):
     # print('b64',rooms())
     # player = game_rooms[rooms()[-1]].players[ip]
     # player.set_frame(data)
-    x,y,w,h = video_proc.process_image(frame = data["data"])
-    print(f"{x}{y}{w}{h}");
+    data = video_proc.process_image(frame = data["data"])
+    if data:
+        print(data)
     # player.calc_hand(x,y,w,h)
 
     
