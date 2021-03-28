@@ -16,7 +16,8 @@ function drawBall() {
 }
 
 function drawPlayers() {
-    for (const player of playersList) {
+    for (var key in playersList) {
+        let player = playersList[key]
         canvContext.drawImage(player.image, player.x, player.y);
     }
 }
