@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Gymio</title>
+    <script src="/static/js/index.js" defer></script>
+
+</head>
+
+<body>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"
+        integrity="sha384-DkkWv9oJFWLIydBXXjkBWnG1/fuVhw8YPBq37uvvD6WSYRFRqr21eY5Dg9ZhmWdy"
+        crossorigin="anonymous"></script>
+
+    <h2>Welcome to Gymio!</h2>
+    <button onclick="capture()">Capture</button> <br> </br>
+    <p id="print_result"></p>
+    <video></video>
+    <canvas id="canvas" style="overflow:auto"></canvas>
+
+</body>
+
+</html>

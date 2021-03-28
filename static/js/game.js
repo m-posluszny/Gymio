@@ -19,12 +19,41 @@ var constraints = {
 var frameWidth;
 var frameHeight;
 
+
 var socket = io();
+
+
+function join(){
+    var name = document.getElementById("name").textContent;
+    var name = document.getElementById("room").textContent;
+}
+
+function create() {
+    var name = document.getElementById('name').value;
+    var room = document.getElementById('room').value;
+    socket.on('joined', function () {
+        window.location.href = "/room/" + room;
 socket.on('connect', mainLoop());
+    })
+    socket.emit('create_game', {
+       
+            id: room,
+            player_name: name
+    });
+}
+
 socket.on('camera_b64_resp', get_cam);
+
 socket.on('players')
 
+socket.on('game_state', on_gamestate);
 captureCamera(video);
+
+
+function on_gamestate(data) {
+    console.log(data)
+    //document.querySelector('#print_result').innerHTML = toString(data);
+}
 
 function get_cam(data) {
     fromBase64(data);
