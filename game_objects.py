@@ -53,7 +53,7 @@ class GameRoom:
         if(self.ball[0] < 0 ):
             self.right = True
         
-        if(self.ball[0] > size[0]):
+        if(self.ball[0] > self.size[0]):
             self.right = False
 
         if (self.up):
@@ -100,6 +100,6 @@ class Player:
         velo = self.velocity
         if (self.hand_pos[0] < (w/3) and pos - velo > 0):
             self.position[0]-=velo
-        elif (self.hand_pos[0] > (2*w/3) and pos + velo + size[0] < w):
+        elif (self.hand_pos[0] > (2*w/3) and pos + velo + self.size[0] < w):
             self.position[0]+=velo
          

@@ -86,6 +86,7 @@ def handle_camera(data):
     player.set_frame(data["data"])
     data = video_proc.process_image(frame = data["data"])
     if data:
+        print(data)
         player.calc_hand(*data)
 
     
