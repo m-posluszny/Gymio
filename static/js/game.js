@@ -24,8 +24,8 @@ var socket = io();
 
 
 function join(){
-    var name = document.getElementById("name").textContent;
-    var name = document.getElementById("room").textContent;
+    var name = document.getElementById("name").value;
+    var room = document.getElementById("room").value;
 }
 
 function create() {
@@ -33,7 +33,7 @@ function create() {
     var room = document.getElementById('room').value;
     socket.on('joined', function () {
         window.location.href = "/room/" + room;
-socket.on('connect', mainLoop());
+        mainLoop();
     })
     socket.emit('create_game', {
        
@@ -46,8 +46,8 @@ socket.on('camera_b64_resp', get_cam);
 
 socket.on('players')
 
-socket.on('game_state', on_gamestate);
 captureCamera(video);
+socket.on('game_state', on_gamestate);
 
 
 function on_gamestate(data) {

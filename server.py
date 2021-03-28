@@ -33,7 +33,7 @@ def game_interval(room_id,*args,**kwargs):
         game = game_rooms[room_id]
         game.update_gameroom()
         
-        socketio.emit('game_state',dir(game),broadcast=True)
+        emit('game_state',dir(game),room=room_id)
         socketio.sleep(1/FRAME_RATE)
 
 @socketio.on('join')
