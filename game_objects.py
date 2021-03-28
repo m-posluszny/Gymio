@@ -46,7 +46,7 @@ class GameRoom:
             if(self.ball[0] > player.position[0] 
             and self.ball[0] < player.position[0] + player.size[0]
             and self.ball[1] > miny and self.ball[1] < maxy):
-                self.up = !self.up
+                self.up = not self.up
             
 
         if (self.up):
