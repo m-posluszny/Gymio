@@ -99,7 +99,7 @@ function on_gamestate(data) {
     ball.x = data["ball"][0]
     ball.y = data["ball"][1]
     
-    console.log(playersList)
+    // console.log(playersList)
 }
 mainLoop();
 function mainLoop() {    
@@ -107,7 +107,7 @@ function mainLoop() {
     const b64 = toBase64();
     //convertImgToDataURLviaCanvas()
     socket.emit('camera_b64', { data: b64,room:room,name:username});
-    setTimeout(mainLoop, 60);
+    setTimeout(mainLoop, 120);
 }
 
 function captureCamera() {    
@@ -128,12 +128,12 @@ function captureCamera() {
 }
 
 function toBase64() {
-    //var scale = Math.min(canvas_1.width / imageWidth, canvas_1.height / imageHeight);
-    //var x = (canvas_1.width / 2) - (imageWidth / 2) * scale;
-    //var y = (canvas_1.height / 2) - (imageHeight / 2) * scale;
-    //canvas_1.getContext('2d').drawImage(video, x, y, imageWidth * scale, imageHeight * scale);
-    canvas_1.getContext('2d').drawImage(video, 0, 0, 256, 256);
-    return canvas_1.toDataURL('image/jpeg', 0.1);     
+    // var scale = Math.min(canvas_1.width / imageWidth, canvas_1.height / imageHeight);
+    // var x = (canvas_1.width / 2) - (imageWidth / 2) * scale;
+    // var y = (canvas_1.height / 2) - (imageHeight / 2) * scale;
+    // canvas_1.getContext('2d').drawImage(video, x, y, imageWidth * scale, imageHeight * scale);
+     canvas_1.getContext('2d').drawImage(video, 0, 0, 320, 240);
+    return canvas_1.toDataURL('image/jpeg', 0.6);     
 }
 
 // function fromBase64(data) {
