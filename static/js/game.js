@@ -48,7 +48,7 @@ captureCamera(video);
 
 
 function on_gamestate(data) {
-    console.log(data)
+    //console.log(data)
     //document.querySelector('#print_result').innerHTML = toString(data);
 }
 
